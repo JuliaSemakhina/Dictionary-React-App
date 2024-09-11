@@ -1,38 +1,218 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&family=Sora:wght@100;300;400&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --mainGreen: rgb(0, 106, 68);
+  --mainRed: rgb(193, 39, 45);
+  --widthChange: clamp(15rem, 55vw, 24rem);
+  --fs-header: clamp(1.2rem, 4vw, 2rem);
+  --fs-default: clamp(.6rem, 3vw, 1rem);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  width: 70vw;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+section {
+  font-family: 'Poppins', sans-serif;
+}
+
+.header {
+  background: linear-gradient(0deg, #F0D514, #EE7917);;
+  max-height: 52vh;
+  font-family: 'Sora', sans-serif;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+img {
+  max-height: 27vh;
+  margin: 0 auto;
+}
+
+.search-top {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.search-bar {
+  position: relative;
+  display: grid;
+  grid-template-rows: 2.2fr .5fr 1fr;
+  gap: .35rem;
+  bottom: 1rem;
+}
+
+.search-bar h1 {
+  font-size: var(--fs-header);
+  padding: 0;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+  text-align: center;
+  color: var(--mainGreen);
+}
+
+.submit-field {
+  display: flex;
+  height: 3.75rem;
+  width: 3.75rem;
+  padding: .188rem;
+  border: .125rem solid var(--mainRed);
+  border-radius: 100vh;
+  position: relative;
+  transition: width 500ms cubic-bezier(.18, .89, .32, 1.12);
+  overflow: hidden;
+}
+
+.submit-field:focus-within {
+  width: 100%;
+}
+
+.submit-field:focus-within .search-bar__submit {
+  background: var(--mainRed);
+  color: #fff;
+}
+
+.submit-field:focus-within .search-bar__input {
+  opacity: 1;
+  cursor: initial;
+  background: transparent;
+  width: calc(100% - 3.75rem);
+}
+
+.submit-field:focus-within .search-bar__submit:focus,
+.submit-field:focus-within .search-bar__submit:hover {
+  outline: 0;
+  box-shadow: 0 0 .625px rgba(0, 0, 0, .35);
+}
+
+.search-bar__input {
+  flex-grow: 1;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+  border: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  line-height: calc(3.75rem - .188rem);
+  opacity: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+.search-bar__input:focus {
+  outline: 0;
+}
+
+.search-bar__submit {
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  width: calc(3.75rem - 0.625rem);
+  height: calc(3.75rem - 0.625rem);
+  margin-left: auto;
+  transition: all 150ms ease-in-out;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.output {
+  visibility: hidden;
+  font-size: var(--fs-default);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* OPEN/CLOSE*/
+.show {
+  visibility: visible;
+}
+
+.output h1 {
+  color: var(--mainGreen);
+}
+
+.output span {
+  font-weight: 600;
+}
+
+p.speech {
+  font-style: italic;
+}
+
+.synonyms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-left: 1rem;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022";
+  color: var(--mainGreen);
+  font-weight: bold;
+  display: inline-block;
+  width: .85rem;
+  margin-left: -.85rem;
+}
+
+audio {
+  outline: none;
+  width: 12rem;
+  height: 2.5rem;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  display: none;
+}
+
+@media (max-width: 860px) {
+
+  .search-bar {
+    width: 90vw;
   }
-  to {
-    transform: rotate(360deg);
+
+  .search-bar__input,
+  .search-bar__submit {
+    font-size: .9rem;
+  }
+
+  .submit-field {
+    height: 2.813rem;
+    width: 2.813rem;
+    bottom: -2rem;
+  }
+
+  .search-bar__submit {
+    width: calc(2.813rem - 0.55rem);
+    height: calc(2.813rem - 0.55rem);
+  }
+
+  .submit-field:focus-within .search-bar__input {
+    width: calc(100%-2.813rem);
+  }
+
+  .synonyms {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
